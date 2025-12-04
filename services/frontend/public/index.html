@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Rankoora — Preview</title>
+  <style>
+    :root { --bg:#0d1117; --panel:#161b22; --muted:#9aa5b1; --accent:#2ea043; color-scheme: dark; }
+    body{margin:0;font-family:Inter,Arial,Helvetica,sans-serif;background:var(--bg);color:#e6edf3;padding:28px}
+    h1{margin:0 0 14px;font-size:22px}
+    .panel{background:var(--panel);border-radius:10px;padding:18px;margin-bottom:16px;box-shadow:0 4px 18px rgba(0,0,0,.5)}
+    .muted{color:var(--muted)}
+    pre{background:#0b0f13;padding:12px;border-radius:6px;overflow:auto}
+    .actions{display:flex;gap:10px}
+    .btn{background:var(--accent);color:#021008;border:0;padding:8px 12px;border-radius:8px;cursor:pointer}
+  </style>
+</head>
+<body>
+  <h1>Rankoora — Frontend Preview</h1>
+
+  <div class="panel">
+    <div style="display:flex;justify-content:space-between;align-items:center">
+      <div>
+        <strong>Site Health</strong><div class="muted small">Preview UI — not connected to live data</div>
+      </div>
+      <div style="text-align:right">
+        <div style="font-weight:700;font-size:22px;color:#7ef3a6">Preview</div>
+        <div class="muted small">Local demo</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="panel">
+    <strong>API Status</strong>
+    <pre id="api">Checking…</pre>
+    <div class="actions" style="margin-top:10px">
+      <button class="btn" onclick="check()">Check API</button>
+      <a class="btn" href="/api/health" target="_blank" style="text-decoration:none;display:inline-block">Open /api/health</a>
+    </div>
+  </div>
+
+  <script>
+    async function check(){
+      const p = document.getElementById('api');
+      p.innerText = 'Pinging /api/health ...';
+      try{
+        const r = await fetch('/api/health');
+        if(!r.ok) throw new Error('status '+r.status);
+        const j = await r.json();
+        p.innerText = JSON.stringify(j,null,2);
+      }catch(e){ p.innerText = 'Error: '+e.message + '\\n\\nMake sure the API is running on port 4000 and the server proxies /api to it.' }
+    }
+    check();
+  </script>
+</body>
+</html>
