@@ -1,0 +1,17 @@
+{
+  "name": "rankoora-frontend",
+  "version": "1.0.0",
+  "description": "Rankoora frontend preview (static + simple server)",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "http-proxy-middleware": "^2.0.6"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
